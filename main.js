@@ -4,7 +4,9 @@ const getLatestNews = async () => {
   // const url = new URL(
   //   `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
   // );
-  const url = new URL("https://nimble-semolina-90d596.netlify.app/");
+  const url = new URL(
+    "https://nimble-semolina-90d596.netlify.app/top-headlines"
+  );
   const response = await fetch(url);
   const data = await response.json();
   newsList = data.articles;
@@ -17,7 +19,7 @@ const render = () => {
       (news) => `<div class="row news">
   <div class="col-lg-4">
     <img class="news-img-size"
-    src=${news.urlToImage}/>
+    src="${news.urlToImage}"/>
   </div>
   <div class="col-lg-8">
     <h2>${news.title}</h2>
