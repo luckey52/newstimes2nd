@@ -1,8 +1,14 @@
 const API_KEY = "b6514b7a92d34fa18407c14d9fd7ad2c";
 let newsList = [];
 const menus = document.querySelectorAll(".menus button");
+console.log("mmmm", menus);
+const sidemenus = document.querySelectorAll(".side-menu-list button");
+console.log("mmmm", sidemenus);
 let url = new URL("https://nimble-semolina-90d596.netlify.app/top-headlines");
 menus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
+sidemenus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 
