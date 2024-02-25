@@ -94,6 +94,11 @@ ${errorMessage}
 const paginationRender = () => {
   const totalPages = Math.ceil(totalResults / pageSize);
   const pageGroup = Math.ceil(page / groupSize);
+  let last = pageGroup * 5;
+  if (last > totalPages) {
+    last = totalPages;
+  }
+  let first = last - 4 <= 0 ? 1 : last - 4;
 
   let lastPage = pageGroup * groupSize;
   if (lastPage > totalPages) {
@@ -101,12 +106,35 @@ const paginationRender = () => {
   }
   const firstPage =
     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+
   let paginationHTML = "";
+
+  if (firstPage >= 6) {
+    paginationHTML = `<li class="page-item"  onclick="moveToPage(1)">
+  <a class="page-link" href="#" aria-label="Previous">
+    <span aria-hidden="true">&laquo;</span>
+  </a>
+</li><li class="page-item" onclick="moveToPage(${
+      page - 1
+    })"><a class="page-link" href="#">Previous</a></li>`;
+  }
+
   for (let i = firstPage; i <= lastPage; i++) {
     paginationHTML += `<li class="page-item ${
       i === page ? "active" : ""
     }" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
   }
+
+  if (lastPage < totalPages) {
+    paginationHTML += ` <li class="page-item" onclick="moveToPage(${
+      page + 1
+    })"><a class="page-link" href="#">Next</a></li><li class="page-item" onclick="moveToPage(${totalPages})">
+  <a class="page-link" href="#" aria-label="Next">
+    <span aria-hidden="true">&raquo;</span>
+  </a>
+</li>`;
+  }
+
   document.querySelector(".pagination").innerHTML = paginationHTML;
 };
 const moveToPage = (pageNum) => {
